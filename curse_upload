@@ -4,9 +4,9 @@ CHANGE_LOG=`git log -1 --pretty=format:"%B"`
 
 cd ./forge/build/libs/
 rm *-sources.jar
-rm *-dev.jar
+rm *-dev-shadow.jar
 FILE_NAME=`echo disforge-*`
-cd ../../
+cd ../../../
 FILE_LOCATION=`echo "./forge/build/libs/$FILE_NAME"`
 
 #See https://github.com/curseforge/api for how to retrieve game version numbers
@@ -20,9 +20,9 @@ echo $RESPONSE
 
 cd ./fabric/build/libs/
 rm *-sources.jar
-rm *-dev.jar
+rm *-dev-shadow.jar
 FILE_NAME=`echo disfabric-*`
-cd ../../
+cd ../../../
 FILE_LOCATION=`echo "./fabric/build/libs/$FILE_NAME"`
 
 #See https://github.com/curseforge/api for how to retrieve game version numbers
