@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "id": "disfabric",
+  "version": "${version}",
+
+  "name": "DisFabric",
+  "description": "A barebones Discord <-> Minecraft chat bridge.",
+  "authors": [
+    "BRForgers Team",
+    "armelin1",
+    "D4rkness_King",
+    "jonatsp"
+  ],
+  "contact": {
+    "homepage": "https://github.com/BRForgers/DisFabric-and-DisForge",
+    "sources": "https://github.com/BRForgers/DisFabric-and-DisForge"
+  },
+
+  "license": "All Rights Reserved",
+  "icon": "icon.png",
+
+  "environment": "server",
+  "entrypoints": {
+    "server": [
+      "one.armelin.dischatbridge.DisFabric"
+    ]
+  },
+  "mixins": [
+    "dischatbridge.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.14.23",
+    "minecraft": ">=1.20.1"
+  }
+}

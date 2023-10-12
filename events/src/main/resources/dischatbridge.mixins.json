@@ -1,0 +1,12 @@
+{
+  "required": true,
+  "package": "one.armelin.dischatbridge.mixins",
+  "compatibilityLevel": "JAVA_16",
+  "mixins": [
+    "MixinServerGamePacketListenerImpl"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "refmap": "DisChatBridge-events-refmap.json"
+}
