@@ -29,10 +29,11 @@ public class DiscordEventListener extends ListenerAdapter {
 
     public void onMessageReceived(@NotNull MessageReceivedEvent e) {
         MinecraftServer server = getServer();
-        if(e.getAuthor() != e.getJDA().getSelfUser()
-                && !e.getAuthor().isBot()
-                && e.getChannel().getId().equals(DisChatBridge.config.channelId)
+        if(e.getChannel() == DisChatBridge.textChannel
+                && e.getAuthor() != e.getJDA().getSelfUser()
+                && !e.getAuthor().getId().equals(DisChatBridge.webhookId)
                 && server != null) {
+            if(e.getAuthor().isBot() && !DisChatBridge.config.allowBotMessages) return;
             if(e.getMessage().getContentRaw().startsWith("!console")
                     && Arrays.asList(DisChatBridge.config.adminsIds).contains(e.getAuthor().getId())) {
                 String command = e.getMessage().getContentRaw().replace("!console ", "");
@@ -50,13 +51,11 @@ public class DiscordEventListener extends ListenerAdapter {
                 }
                 playerList.append("```");
                 e.getChannel().sendMessage(playerList.toString()).queue();
-
             } else if (e.getMessage().getContentRaw().startsWith("!tps")) {
                 StringBuilder tpss = new StringBuilder("Server TPS: ");
                 double serverTickTime = Utils.average(server.tickTimes) * 1.0E-6D;
                 tpss.append(Math.min(1000.0 / serverTickTime, 20));
                 e.getChannel().sendMessage(tpss.toString()).queue();
-
             } else if(e.getMessage().getContentRaw().startsWith("!help")){
                 String help = """
                         ```
@@ -108,7 +107,7 @@ public class DiscordEventListener extends ListenerAdapter {
     }
 
     private static String applyPlaceholders(String text, MessageReceivedEvent e) {
-        return text.replace("%discordname%", Utils.sanitize(Objects.requireNonNull(e.getMember()).getEffectiveName(), true))
+        return text.replace("%discordname%", Utils.sanitize(Objects.requireNonNull(e.getMember()).getEffectiveName(), true) + (e.getAuthor().isBot() ? "[BOT]" : ""))
                 .replace("%message%", MarkdownParser.parseMarkdown(Utils.sanitize(e.getMessage().getContentDisplay(), false)
                         + ((!e.getMessage().getAttachments().isEmpty()) ? " <att>" : "")
                         + ((!e.getMessage().getEmbeds().isEmpty()) ? " <embed>" : "")));

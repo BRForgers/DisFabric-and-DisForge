@@ -16,15 +16,17 @@ import okhttp3.Protocol;
 import one.armelin.dischatbridge.commands.ShrugCommand;
 import one.armelin.dischatbridge.listeners.DiscordEventListener;
 import one.armelin.dischatbridge.listeners.MinecraftEventListener;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Collections;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class DisChatBridge {
 
 	public static final String name = Platform.isFabric() ? "DisFabric" : "DisForge";
-	public static final Logger LOGGER = LogManager.getFormatterLogger(name);
+	public static final Logger LOGGER = LoggerFactory.getLogger(name);
 	public static Configuration config;
 	public static JDA jda;
 
@@ -33,11 +35,15 @@ public class DisChatBridge {
 			.build();
 
 	public static GuildMessageChannel textChannel;
+
+	public static String webhookId = "";
 	public static boolean stop = false;
 	public static void serverInit() {
 		config = Configuration.getConfig();
 		try {
-			JDABuilder jdaBuilder = JDABuilder.createDefault(config.botToken).setHttpClient(new OkHttpClient.Builder()
+			JDABuilder jdaBuilder = JDABuilder
+					.createDefault(config.botToken)
+					.setHttpClient(new OkHttpClient.Builder()
 							.protocols(Collections.singletonList(Protocol.HTTP_1_1))
 							.build())
 					.addEventListeners(new DiscordEventListener())
@@ -54,6 +60,16 @@ public class DisChatBridge {
 		} catch (InterruptedException ex) {
 			jda = null;
 			DisChatBridge.LOGGER.error("Exception", ex);
+		}
+		if(!config.webhookURL.isEmpty()){
+			Matcher webhookMatcher = Pattern
+					.compile("https://[a-z]*\\.?(?:discord|discordapp)\\.com/api/webhooks/(?<id>[0-9]+)/[a-zA-Z0-9_-]+")
+					.matcher(config.webhookURL);
+			if(webhookMatcher.matches()){
+				webhookId = webhookMatcher.group("id");
+			} else {
+				throw new IllegalStateException("Invalid webhook URL");
+			}
 		}
 		if(jda != null) {
 			if (!config.botGameStatus.isEmpty())

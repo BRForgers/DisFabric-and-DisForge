@@ -12,7 +12,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 public class Configuration {
-    @Comment(value = "Sets if DisFabric Should Modify In-Game Chat Messages")
+    @Comment(value = "Sets if DisFabric/DisForge should modify in-game chat messages")
     public boolean modifyChatMessages = true;
 
     @Comment(value = "Bot Token; see https://discordpy.readthedocs.io/en/latest/discord.html")
@@ -29,6 +29,9 @@ public class Configuration {
 
     @Comment(value = "Use UUID instead nickname to request player head on webhook")
     public Boolean useUUIDInsteadNickname = true;
+
+    @Comment(value = "Sets if DisFabric/DisForge should send Bot messages to Minecraft")
+    public boolean allowBotMessages = false;
 
     @Comment(value = """
             Admins ids in Discord; see https://support.discord.com/hc/en-us/articles/206346498-Where-can-I-find-my-User-Server-Message-ID-
