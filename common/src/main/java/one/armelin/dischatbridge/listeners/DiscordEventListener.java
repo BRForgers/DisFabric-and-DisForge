@@ -47,7 +47,7 @@ public class DiscordEventListener extends ListenerAdapter {
                         "```\n=============== Online Players (" + onlinePlayers.size() + ") ===============\n"
                 );
                 for (ServerPlayer player : onlinePlayers) {
-                    playerList.append("\n").append(player.getScoreboardName());
+                    playerList.append("\n").append(player.getScoreboardName()).append("\t").append(player.latency).append("ms");
                 }
                 playerList.append("```");
                 e.getChannel().sendMessage(playerList.toString()).queue();

@@ -10,7 +10,7 @@ cd ../../../
 FILE_LOCATION=`echo "./forge/build/libs/$FILE_NAME"`
 
 #See https://github.com/curseforge/api for how to retrieve game version numbers
-JSON=`printf '{"changelog": "%s", "gameVersions": [7498,10150,9990], "releaseType": "release"}' "$CHANGE_LOG"`
+JSON=`printf '{"changelog": "%s", "gameVersions": [9639,7498,10150,9990], "releaseType": "release"}' "$CHANGE_LOG"`
 
 echo "Uploading $FILE_NAME to Curse Forge..."
 echo
@@ -26,7 +26,7 @@ cd ../../../
 FILE_LOCATION=`echo "./fabric/build/libs/$FILE_NAME"`
 
 #See https://github.com/curseforge/api for how to retrieve game version numbers
-JSON=`printf '{"changelog": "%s", "gameVersions": [7499,9990], "releaseType": "release"}' "$CHANGE_LOG"`
+JSON=`printf '{"changelog": "%s", "gameVersions": [9639,7499,9153,9990], "releaseType": "release"}' "$CHANGE_LOG"`
 
 echo "Uploading $FILE_NAME to Curse Forge..."
 echo
