@@ -58,6 +58,9 @@ public class Configuration {
     @Comment(value = "Should announce when a player die?")
     public boolean announceDeaths = true;
 
+    @Comment(value = "Should announce when server crash?")
+    public boolean announceCrashes = true;
+
     public Texts texts = new Texts();
 
     public static class Texts {
@@ -152,6 +155,13 @@ public class Configuration {
 
         @Comment(value = "Removes line break from any discord message to avoid spam")
         public Boolean removeLineBreakFromDiscord = false;
+
+        @Comment(value = """
+                Minecraft -> Discord
+                Crash message
+                Available placeholders:
+                %crashdescription% | Crash description""")
+        public String crashMessage = "**Server crashed:** %crashdescription%";
     }
 
     public static Configuration getConfig() {

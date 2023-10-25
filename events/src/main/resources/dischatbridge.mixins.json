@@ -3,7 +3,8 @@
   "package": "one.armelin.dischatbridge.mixins",
   "compatibilityLevel": "JAVA_16",
   "mixins": [
-    "MixinServerGamePacketListenerImpl"
+    "MixinServerGamePacketListenerImpl",
+    "MixinCrashReport"
   ],
   "injectors": {
     "defaultRequire": 1

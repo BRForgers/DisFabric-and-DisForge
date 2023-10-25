@@ -14,6 +14,7 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.MediaType;
 import one.armelin.dischatbridge.DisChatBridge;
+import one.armelin.dischatbridge.events.Crash;
 import one.armelin.dischatbridge.events.ServerChat;
 import one.armelin.dischatbridge.utils.MarkdownParser;
 import one.armelin.dischatbridge.utils.Utils;
@@ -77,6 +78,12 @@ public class MinecraftEventListener {
         PlayerEvent.PLAYER_QUIT.register((playerEntity) -> {
             if (DisChatBridge.config.announcePlayers && !DisChatBridge.stop) {
                 DisChatBridge.textChannel.sendMessage(DisChatBridge.config.texts.leftServer.replace("%playername%", MarkdownSanitizer.escape(playerEntity.getScoreboardName()))).queue();
+            }
+        });
+
+        Crash.CRASHED.register((string, throwable) -> {
+            if (DisChatBridge.config.announceCrashes) {
+                DisChatBridge.textChannel.sendMessage(DisChatBridge.config.texts.crashMessage.replace("%crashdescription%", string)).queue();
             }
         });
     }
