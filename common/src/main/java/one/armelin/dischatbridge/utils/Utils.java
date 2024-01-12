@@ -51,16 +51,6 @@ public class Utils {
         return new Tuple<>(discordString.toString(), mcString.toString());
     }
 
-    public static double average(long[] values) {
-        long l = 0L;
-
-        for (long m : values) {
-            l += m;
-        }
-
-        return (double)l / (double)values.length;
-    }
-
     public static String sanitize(String text, boolean always) {
         return text
                 .replace("§", (DisChatBridge.config.texts.removeVanillaFormattingFromDiscord || always) ? "&" : "§")

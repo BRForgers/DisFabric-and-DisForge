@@ -7,6 +7,7 @@ import dev.architectury.event.EventResult;
 import dev.architectury.event.events.common.EntityEvent;
 import dev.architectury.event.events.common.PlayerEvent;
 import net.dv8tion.jda.api.utils.MarkdownSanitizer;
+import net.minecraft.advancements.Advancement;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.Tuple;
@@ -52,12 +53,13 @@ public class MinecraftEventListener {
             return CompoundEventResult.pass();
         });
 
-        PlayerEvent.PLAYER_ADVANCEMENT.register((playerEntity, advancement) -> {
-            if (DisChatBridge.config.announceAdvancements && advancement.getDisplay() != null && advancement.getDisplay().shouldAnnounceChat() && !DisChatBridge.stop) {
-                switch (advancement.getDisplay().getFrame()) {
-                    case GOAL -> DisChatBridge.textChannel.sendMessage(DisChatBridge.config.texts.advancementGoal.replace("%playername%", MarkdownSanitizer.escape(playerEntity.getScoreboardName())).replace("%advancement%", MarkdownSanitizer.escape(advancement.getDisplay().getTitle().getString()))).queue();
-                    case TASK -> DisChatBridge.textChannel.sendMessage(DisChatBridge.config.texts.advancementTask.replace("%playername%", MarkdownSanitizer.escape(playerEntity.getScoreboardName())).replace("%advancement%", MarkdownSanitizer.escape(advancement.getDisplay().getTitle().getString()))).queue();
-                    case CHALLENGE -> DisChatBridge.textChannel.sendMessage(DisChatBridge.config.texts.advancementChallenge.replace("%playername%", MarkdownSanitizer.escape(playerEntity.getScoreboardName())).replace("%advancement%", MarkdownSanitizer.escape(advancement.getDisplay().getTitle().getString()))).queue();
+        PlayerEvent.PLAYER_ADVANCEMENT.register((playerEntity, advancementHolder) -> {
+            Advancement advancement = advancementHolder.value();
+            if (DisChatBridge.config.announceAdvancements && advancement.display().isPresent() && advancement.display().get().shouldAnnounceChat() && !DisChatBridge.stop) {
+                switch (advancement.display().get().getType()) {
+                    case GOAL -> DisChatBridge.textChannel.sendMessage(DisChatBridge.config.texts.advancementGoal.replace("%playername%", MarkdownSanitizer.escape(playerEntity.getScoreboardName())).replace("%advancement%", MarkdownSanitizer.escape(advancement.display().get().getTitle().getString()))).queue();
+                    case TASK -> DisChatBridge.textChannel.sendMessage(DisChatBridge.config.texts.advancementTask.replace("%playername%", MarkdownSanitizer.escape(playerEntity.getScoreboardName())).replace("%advancement%", MarkdownSanitizer.escape(advancement.display().get().getTitle().getString()))).queue();
+                    case CHALLENGE -> DisChatBridge.textChannel.sendMessage(DisChatBridge.config.texts.advancementChallenge.replace("%playername%", MarkdownSanitizer.escape(playerEntity.getScoreboardName())).replace("%advancement%", MarkdownSanitizer.escape(advancement.display().get().getTitle().getString()))).queue();
                 }
             }
         });

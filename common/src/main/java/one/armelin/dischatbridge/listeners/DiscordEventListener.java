@@ -47,14 +47,13 @@ public class DiscordEventListener extends ListenerAdapter {
                         "```\n=============== Online Players (" + onlinePlayers.size() + ") ===============\n"
                 );
                 for (ServerPlayer player : onlinePlayers) {
-                    playerList.append("\n").append(player.getScoreboardName()).append("\t").append(player.latency).append("ms");
+                    playerList.append("\n").append(player.getScoreboardName()).append("\t").append(player.connection.latency()).append("ms");
                 }
                 playerList.append("```");
                 e.getChannel().sendMessage(playerList.toString()).queue();
             } else if (e.getMessage().getContentRaw().startsWith("!tps")) {
                 StringBuilder tpss = new StringBuilder("Server TPS: ");
-                double serverTickTime = Utils.average(server.tickTimes) * 1.0E-6D;
-                tpss.append(Math.min(1000.0 / serverTickTime, 20));
+                tpss.append(Math.min(1000.0 / server.getCurrentSmoothedTickTime(), 20));
                 e.getChannel().sendMessage(tpss.toString()).queue();
             } else if(e.getMessage().getContentRaw().startsWith("!help")){
                 String help = """

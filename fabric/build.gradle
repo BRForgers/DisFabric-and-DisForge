@@ -33,6 +33,8 @@ dependencies {
         exclude group: 'org.slf4j'
         exclude module: 'annotations'
     }
+
+    shadowCommon "curse.maven:no-chat-reports-634062:4938991"
 }
 
 processResources {
