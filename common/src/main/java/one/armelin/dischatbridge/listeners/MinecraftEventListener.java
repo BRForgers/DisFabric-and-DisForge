@@ -8,6 +8,7 @@ import dev.architectury.event.events.common.EntityEvent;
 import dev.architectury.event.events.common.PlayerEvent;
 import net.dv8tion.jda.api.utils.MarkdownSanitizer;
 import net.minecraft.advancements.Advancement;
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.Tuple;
@@ -48,7 +49,7 @@ public class MinecraftEventListener {
             if (DisChatBridge.config.modifyChatMessages) {
                 JsonObject newComponent = new JsonObject();
                 newComponent.addProperty("text", MarkdownParser.parseMarkdown(convertedPair.getB()));
-                return CompoundEventResult.interruptTrue(Component.Serializer.fromJson(newComponent.toString(), null));
+                return CompoundEventResult.interruptTrue(Component.Serializer.fromJson(newComponent.toString(), RegistryAccess.EMPTY));
             }
             return CompoundEventResult.pass();
         });
