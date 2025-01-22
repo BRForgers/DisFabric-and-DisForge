@@ -48,7 +48,7 @@ public class MinecraftEventListener {
             if (DisChatBridge.config.modifyChatMessages) {
                 JsonObject newComponent = new JsonObject();
                 newComponent.addProperty("text", MarkdownParser.parseMarkdown(convertedPair.getB()));
-                return CompoundEventResult.interruptTrue(Component.Serializer.fromJson(newComponent.toString()));
+                return CompoundEventResult.interruptTrue(Component.Serializer.fromJson(newComponent.toString(), null));
             }
             return CompoundEventResult.pass();
         });

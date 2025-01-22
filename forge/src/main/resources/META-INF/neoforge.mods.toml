@@ -1,0 +1,38 @@
+modLoader="javafml" #mandatory
+loaderVersion="[4,)" #mandatory This is typically bumped every Minecraft version by Forge. See our download page for lists of versions.
+license="All Rights Reserved"
+issueTrackerURL="https://github.com/BRForgers/DisFabric-and-DisForge/issues"
+
+[[mods]] #mandatory
+modId="disforge" #mandatory
+version="${version}" #mandatory
+displayName="DisForge" #mandatory
+#updateJSONURL="http://myurl.me/" #optional
+#displayURL="http://example.com/" #optional
+logoFile="icon.png" #optional
+#credits="Thanks for this example mod goes to Java" #optional
+authors="BRForgers Team, armelin1"
+description='''
+A barebones Discord <-> Minecraft chat bridge.
+'''
+[[dependencies.disforge]] #optional
+   modId = "neoforge"
+   type = "required"
+   versionRange = "[21.1,)"
+   ordering = "NONE"
+   side = "BOTH"
+[[dependencies.disforge]]
+   modId="minecraft"
+   mandatory=true
+   versionRange="[1.21.1,1.22)"
+   ordering="NONE"
+   side="SERVER"
+[[dependencies.disforge]]
+   modId = "architectury"
+   type = "required"
+   versionRange = "[13.0.8,)"
+   ordering = "AFTER"
+   side = "SERVER"
+
+[[mixins]]
+config = "dischatbridge.mixins.json"
