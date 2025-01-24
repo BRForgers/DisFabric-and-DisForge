@@ -20,7 +20,7 @@ A barebones Discord <-> Minecraft chat bridge.
    type = "required"
    versionRange = "[21.1,)"
    ordering = "NONE"
-   side = "BOTH"
+   side = "SERVER"
 [[dependencies.disforge]]
    modId="minecraft"
    mandatory=true
