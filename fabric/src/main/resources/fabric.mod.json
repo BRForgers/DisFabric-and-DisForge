@@ -26,7 +26,7 @@
     ]
   },
   "mixins": [
-    "dischatbridge.mixins.json"
+    "disfabric.mixins.json"
   ],
   "depends": {
     "fabricloader": ">=0.16.10",

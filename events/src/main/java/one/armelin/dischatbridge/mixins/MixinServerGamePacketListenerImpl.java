@@ -17,7 +17,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class MixinServerGamePacketListenerImpl {
     @Shadow public ServerPlayer player;
 
-    @Inject(at = @At(value = "INVOKE", target = "Lnet/minecraft/server/players/PlayerList;broadcastChatMessage(Lnet/minecraft/network/chat/PlayerChatMessage;Lnet/minecraft/server/level/ServerPlayer;Lnet/minecraft/network/chat/ChatType$Bound;)V"), method = "broadcastChatMessage", cancellable = true)
+    @Inject(at = @At(value = "INVOKE", target = "Lnet/minecraft/server/players/PlayerList;broadcastChatMessage(Lnet/minecraft/network/chat/PlayerChatMessage;Lnet/minecraft/server/level/ServerPlayer;Lnet/minecraft/network/chat/ChatType$Bound;)V"), method = "broadcastChatMessage(Lnet/minecraft/network/chat/PlayerChatMessage;)V", cancellable = true)
     private void broadcastChatMessage(PlayerChatMessage message, CallbackInfo ci) {
         CompoundEventResult<Component> eventResult = ServerChat.RECEIVED.invoker().received(this.player, message.decoratedContent());
         if (eventResult.isPresent()) {

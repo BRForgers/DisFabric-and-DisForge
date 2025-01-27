@@ -35,4 +35,4 @@ A barebones Discord <-> Minecraft chat bridge.
    side = "SERVER"
 
 [[mixins]]
-config = "dischatbridge.mixins.json"
+config = "disforge.mixins.json"
